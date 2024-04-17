@@ -4,6 +4,7 @@
 #include <memory>
 #include <utility>
 
+// Arena Allocator -
 class ArenaAllocator {
 public:
     explicit ArenaAllocator(const size_t max_num_bytes)

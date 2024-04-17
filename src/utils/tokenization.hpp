@@ -24,7 +24,7 @@ enum class TokenType {
     _elif,
     _else,
 };
-
+// converting the TokenType from enum to string
 inline std::string convert_str(const TokenType type)
 {
     switch (type) {

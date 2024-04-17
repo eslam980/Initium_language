@@ -1,0 +1,10 @@
+var success = 55;
+var failed = 22;
+var tr = 50 + 50 / 10; // this going to equal = 1
+
+if(tr){
+    leave(success);
+}
+else{
+    leave(failed);
+}

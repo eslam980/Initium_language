@@ -5,9 +5,9 @@
 
 #include "parsing.hpp"
 
-class GeneratorWin {
+class WindowsGenerator {
 public:
-    explicit GeneratorWin(NodeProg prog)
+    explicit WindowsGenerator(NodeProg prog)
         : m_prog(std::move(prog))
     {
     }
@@ -15,7 +15,7 @@ public:
     void gen_term(const NodeTerm* term)
     {
         struct TermVisitor {
-            GeneratorWin& gen;
+            WindowsGenerator& gen;
 
             void operator()(const NodeTermIntLit* term_int_lit) const
             {
@@ -49,7 +49,7 @@ public:
     void gen_bin_expr(const NodeBinExpr* bin_expr)
     {
         struct BinExprVisitor {
-            GeneratorWin& gen;
+            WindowsGenerator& gen;
 
             void operator()(const NodeBinExprSub* sub) const
             {
@@ -99,7 +99,7 @@ public:
     void gen_expr(const NodeExpr* expr)
     {
         struct ExprVisitor {
-            GeneratorWin& gen;
+            WindowsGenerator& gen;
 
             void operator()(const NodeTerm* term) const
             {
@@ -128,7 +128,7 @@ public:
     void gen_if_pred(const NodeIfPred* pred, const std::string& end_label)
     {
         struct PredVisitor {
-            GeneratorWin& gen;
+            WindowsGenerator& gen;
             const std::string& end_label;
 
             void operator()(const NodeIfPredElif* elif) const
@@ -161,7 +161,7 @@ public:
     void gen_stmt(const NodeStmt* stmt)
     {
         struct StmtVisitor {
-            GeneratorWin& gen;
+            WindowsGenerator& gen;
 
             void operator()(const NodeStmtExit* stmt_exit) const
             {

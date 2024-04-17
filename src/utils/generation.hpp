@@ -5,9 +5,9 @@
 
 #include "parsing.hpp"
 
-class Generator {
+class LinuxGenerator {
 public:
-    explicit Generator(NodeProg prog)
+    explicit LinuxGenerator(NodeProg prog)
         : m_prog(std::move(prog))
     {
     }
@@ -15,7 +15,7 @@ public:
     void gen_term(const NodeTerm* term)
     {
         struct TermVisitor {
-            Generator& gen;
+            LinuxGenerator& gen;
 
             void operator()(const NodeTermIntLit* term_int_lit) const
             {
@@ -49,7 +49,7 @@ public:
     void gen_bin_expr(const NodeBinExpr* bin_expr)
     {
         struct BinExprVisitor {
-            Generator& gen;
+            LinuxGenerator& gen;
 
             void operator()(const NodeBinExprSub* sub) const
             {
@@ -99,7 +99,7 @@ public:
     void gen_expr(const NodeExpr* expr)
     {
         struct ExprVisitor {
-            Generator& gen;
+            LinuxGenerator& gen;
 
             void operator()(const NodeTerm* term) const
             {
@@ -128,7 +128,7 @@ public:
     void gen_if_pred(const NodeIfPred* pred, const std::string& end_label)
     {
         struct PredVisitor {
-            Generator& gen;
+            LinuxGenerator& gen;
             const std::string& end_label;
 
             void operator()(const NodeIfPredElif* elif) const
@@ -161,7 +161,7 @@ public:
     void gen_stmt(const NodeStmt* stmt)
     {
         struct StmtVisitor {
-            Generator& gen;
+            LinuxGenerator& gen;
 
             void operator()(const NodeStmtExit* stmt_exit) const
             {

@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     if (argc < 2) {
         std::cerr << "Incorrect usage. Correct usage is..." << std::endl;
         // commands going to be like this ./main.inm linux/win
-        std::cerr << "Initium <MAIN.inm> <platform[win/linux]>" << std::endl;
+        std::cerr << "Initium <MAIN.inm> <platform[windows/linux]>" << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     if (argc >= 2) {
         platform = argv[2];
         // basic checking error
-        if(platform == "linux" || platform == "win"){
+        if(platform == "linux" || platform == "windows"){
             std::cout << "Built " << platform << "Platform Success" << std::endl;
         }else{
             std::cerr << "Incorrect platform, please the supported platforms" << std::endl;
@@ -61,14 +61,14 @@ int main(int argc, char* argv[])
 
     if(platform == "linux")
     {
-        Generator generator(prog.value());
+        LinuxGenerator generator(prog.value());
         std::fstream file("output.asm", std::ios::out);
         file << generator.gen_prog();
 
         system_combo = "nasm -felf64 output.asm";
     }
-    else if (platform == "win") {
-        GeneratorWin generator(prog.value());
+    else if (platform == "windows") {
+        WindowsGenerator generator(prog.value());
         std::fstream file("output.asm", std::ios::out);
 
         // compilation to asm

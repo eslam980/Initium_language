@@ -1,0 +1,15 @@
+var x = 10;
+var y = 20;
+var z = 30;
+
+if(0){ // false
+    leave(x);
+}
+elif(1){ // true
+    leave(y);
+}
+else{
+    leave(z);
+}
+
+leave(66); // the exit code 66

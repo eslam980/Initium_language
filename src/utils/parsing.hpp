@@ -252,28 +252,36 @@ public:
     {
         if (peek().has_value() && peek().value().type == TokenType::_exit && peek(1).has_value()
             && peek(1).value().type == TokenType::_open_paren) {
+            // consume twice for the white space and paren
             consume();
             consume();
             auto stmt_exit = m_allocator.emplace<NodeStmtExit>();
+
             if (const auto node_expr = parse_expr()) {
                 stmt_exit->expr = node_expr.value();
             }
             else {
                 error_expected("expression");
             }
+
             try_consume_err(TokenType::_close_paren);
             try_consume_err(TokenType::_semi_col);
+
             auto stmt = m_allocator.emplace<NodeStmt>();
             stmt->var = stmt_exit;
+
             return stmt;
         }
         if (peek().has_value() && peek().value().type == TokenType::_let && peek(1).has_value()
             && peek(1).value().type == TokenType::_ident && peek(2).has_value()
             && peek(2).value().type == TokenType::_equal) {
             consume();
+
             auto stmt_let = m_allocator.emplace<NodeStmtLet>();
             stmt_let->ident = consume();
+
             consume();
+
             if (const auto expr = parse_expr()) {
                 stmt_let->expr = expr.value();
             }
@@ -281,8 +289,10 @@ public:
                 error_expected("expression");
             }
             try_consume_err(TokenType::_semi_col);
+
             auto stmt = m_allocator.emplace<NodeStmt>();
             stmt->var = stmt_let;
+
             return stmt;
         }
         if (peek().has_value() && peek().value().type == TokenType::_ident && peek(1).has_value()
@@ -290,13 +300,16 @@ public:
             const auto assign = m_allocator.alloc<NodeStmtAssign>();
             assign->ident = consume();
             consume();
+
             if (const auto expr = parse_expr()) {
                 assign->expr = expr.value();
             }
             else {
                 error_expected("expression");
             }
+
             try_consume_err(TokenType::_semi_col);
+
             auto stmt = m_allocator.emplace<NodeStmt>(assign);
             return stmt;
         }
@@ -305,24 +318,30 @@ public:
                 auto stmt = m_allocator.emplace<NodeStmt>(scope.value());
                 return stmt;
             }
+
             error_expected("scope");
         }
         if (auto if_ = try_consume(TokenType::_if)) {
             try_consume_err(TokenType::_open_paren);
+
             auto stmt_if = m_allocator.emplace<NodeStmtIf>();
+
             if (const auto expr = parse_expr()) {
                 stmt_if->expr = expr.value();
             }
             else {
                 error_expected("expression");
             }
+
             try_consume_err(TokenType::_close_paren);
+
             if (const auto scope = parse_scope()) {
                 stmt_if->scope = scope.value();
             }
             else {
                 error_expected("scope");
             }
+            
             stmt_if->pred = parse_if_pred();
             auto stmt = m_allocator.emplace<NodeStmt>(stmt_if);
             return stmt;
