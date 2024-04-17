@@ -30,6 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Compiler
 out.asm
 out
 build/CMakeFiles/cmake.check_cache
