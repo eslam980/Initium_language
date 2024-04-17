@@ -1,0 +1,4 @@
+var normal = 100 / 2;
+
+// going to leave with the value of the normal which is the 100 / 2 = 50
+leave(normal);
