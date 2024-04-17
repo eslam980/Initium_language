@@ -7,6 +7,5 @@
 
 Custom Programming Language Made by c++ and assembly. This is a personal project that was made under a week to test my personal skill with coding in c++ and assembly.
 
-[Getting_Started]: https://www.google.com/get-started
-[Documentation]:  https://www.google.com/documentation
-
+[Getting_Started]: https://eslam980.gitbook.io/initium-docs/
+[Documentation]:  https://eslam980.gitbook.io/initium-docs/
